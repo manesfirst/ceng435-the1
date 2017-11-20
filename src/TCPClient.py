@@ -2,7 +2,6 @@ import socket
 import sys
 import time
 
-
 ipAddress, port = "10.10.1.2", 30000
 
 data = sys.argv[1]
@@ -16,6 +15,8 @@ try:
 
     received = str(sock.recv(1024), "utf-8")
     print(received)
+
+
 finally:
     sock.close()
 

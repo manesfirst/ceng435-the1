@@ -33,4 +33,8 @@ class RouterU2Server(socketserver.BaseRequestHandler):
 ipAddress = "10.10.4.2"
 port = 28000
 RouterServer = socketserver.UDPServer((ipAddress, port), RouterU2Server)
-RouterServer.serve_forever()
+try:
+    RouterServer.serve_forever()
+
+except KeyboardInterrupt:
+    RouterServer.server_close()

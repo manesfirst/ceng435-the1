@@ -28,4 +28,8 @@ class RouterT2Server(socketserver.BaseRequestHandler):
 ipAddress = "10.10.3.2"
 port = 27500
 TCPserver = socketserver.TCPServer((ipAddress, port), RouterT2Server)
-TCPserver.serve_forever()
+try:
+    TCPserver.serve_forever()
+
+except KeyboardInterrupt:
+    TCPserver.server_close()

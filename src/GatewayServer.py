@@ -99,14 +99,22 @@ def udpServer():
     ipAddress = "10.10.2.2"
     port = 29000
     UDPserver = socketserver.UDPServer((ipAddress,port),GatewayServerUDP)
-    UDPserver.serve_forever()
+    try:
+        UDPserver.serve_forever()
+
+    except KeyboardInterrupt:
+        UDPserver.server_close()
 
 
 def tcpServer():
     ipAddress = "10.10.1.2"
     port = 30000
     TCPserver = socketserver.TCPServer((ipAddress, port), GatewayServerTCP)
-    TCPserver.serve_forever()
+    try:
+        TCPserver.serve_forever()
+
+    except KeyboardInterrupt:
+        TCPserver.server_close()
 
 
 
