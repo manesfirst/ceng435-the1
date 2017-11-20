@@ -9,9 +9,10 @@ class GatewayServerUDP(socketserver.BaseRequestHandler):
         data = self.request[0].strip()
         # socket = self.request[1]
         # print("{} wrote:".format(self.client_address[0]))
+        destination = data.decode().split("?")[0]
         print(data.decode() + " I'm Gateway UDP server!")
-        if('U' in data.decode()):
-            #self.handleUDPredirection(data)
+        if('U' in destination):
+            self.handleUDPredirection(data)
             pass
 
         else:
@@ -55,7 +56,8 @@ class GatewayServerTCP(socketserver.BaseRequestHandler):
     def handle(self):
         data = self.request.recv(1024).strip()
         print(data.decode() + "I'm gateway TCP server!")
-        if('T' in data.decode()):
+        destination = data.decode().split("?")[0]
+        if('T' in destination):
             self.handleTCPredirection(data)
             pass
         else:

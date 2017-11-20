@@ -1,7 +1,7 @@
 import socket
 import sys
+import time
 
-import datetime
 
 ipAddress, port = "10.10.1.2", 30000
 
@@ -10,15 +10,12 @@ data = sys.argv[1]
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:
-    start = datetime.datetime.now()
+    start = str(time.time())
     sock.connect((ipAddress, port))
-    sock.sendall(data.encode())
+    sock.sendall((data + "?" + str(start)).encode())
 
     received = str(sock.recv(1024), "utf-8")
-    end = datetime.datetime.now()
     print(received)
-    print(end - start)
-
 finally:
     sock.close()
 

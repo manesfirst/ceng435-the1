@@ -1,11 +1,15 @@
 import socketserver
-
+import time
 
 class DestinationU3Server(socketserver.BaseRequestHandler):
 
     def handle(self):
-        data = self.request[0].strip()
-        print(data.decode() + " I'm U3 destination!")
+        data = self.request.recv(1024).strip().decode()
+        print(data)
+        receivedTime = float(data.split("?")[1])
+        currentTime = time.time()
+        print(currentTime-receivedTime)
+        print(str(data) + " I'm U3 destination!")
 
         self.request[1].sendto("This is U3!".encode(), self.client_address)
 
