@@ -11,9 +11,10 @@ class RouterT2Server(socketserver.BaseRequestHandler):
 
 
     def handleTCPredirection(self,data):
-        ipAddress, port = "10.10.5.2", 21000 #The port that T2 listens
+        ipAddress, port = "10.10.5.2", 21000 #The port that T3 listens
 
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #The code is very similar to Gateway's UDP server. When request comes, i
+                                                                # t prints the data and 'I'm U2 router!' string, opens a socket to next node, send the data and wait for response
 
         try:
             sock.connect((ipAddress, port))

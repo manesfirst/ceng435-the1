@@ -4,21 +4,19 @@ import time
 class DestinationU3Server(socketserver.BaseRequestHandler):
 
     def handle(self):
-        data = self.request.recv(1024).strip().decode()
-        # print(data)
-        receivedTime = float(data.split("?")[1])
+        data = self.request.recv(1024).strip().decode() #These are basically the same server with Routers. They just don't send the data any more further, these start to send data bask to listeners.
+        receivedTime = float(data.split("?")[1]) #Takes the time from client node, converts it to float, and find the difference between that and current time.
         currentTime = time.time()
         print(currentTime-receivedTime)
-        # print(data + " I'm U3 destination!")
 
         self.request[1].sendto("This is U3!".encode(), self.client_address)
 
 
 ipAddress = "10.10.6.2"
 port = 20000
-RouterServer = socketserver.UDPServer((ipAddress, port), DestinationU3Server)
+UDPserver = socketserver.UDPServer((ipAddress, port), DestinationU3Server)
 try:
-    RouterServer.serve_forever()
+    UDPserver.serve_forever()
 
 except KeyboardInterrupt:
-    RouterServer.server_close()
+    UDPserver.server_close()
